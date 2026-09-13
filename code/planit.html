@@ -1,4 +1,4 @@
-<title>Pinit</title>
+<title>PlanIt</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -884,7 +884,7 @@
 
 <div id="app">
   <header>
-    <div class="brand">Pinit<small id="fassung"></small></div>
+    <div class="brand">PlanIt<small id="fassung"></small></div>
     <span id="mode-badge" class="badge" hidden>Vorlage</span>
     <span id="frozen-badge" class="badge frozen" hidden title="Dieses Brett ist eingefroren: niemand ändert etwas, auch Claude nicht. Oben rechts auftauen.">Eingefroren</span>
     <input id="title" value="Unbenanntes Brett" aria-label="Name des Bretts" spellcheck="false">
@@ -959,7 +959,7 @@
           <h3>Für Claude</h3>
           <p>Jedes Element hat im Inspektor unter „Für Claude“ eine <b>Notiz</b> (Details, Verhalten, Regeln), einen <b>Verweis</b> (Datei, URL, Ticket) und einen <b>Status</b>. Die <b>Kennung</b> oben im Inspektor (Klick kopiert) benennt ein Element gegenüber Claude eindeutig.</p>
           <p><b>Einfrieren</b> oben rechts sperrt das Brett für alle, auch für Claude — das ist die Fassung, gegen die gebaut wird. <b>Diagramm-Text</b> kopiert den offenen Reiter als Mermaid.</p>
-          <p class="hinweis">Claude liest und schreibt dieses Brett über die Artifact-Datenbank (Skills <code>pinit-lesen</code>, <code>pinit-schreiben</code>). Die Seite selbst kann jederzeit aktualisiert werden, der Inhalt bleibt.</p>
+          <p class="hinweis">Claude liest und schreibt dieses Brett über die Artifact-Datenbank (Skills <code>planit-lesen</code>, <code>planit-schreiben</code>). Die Seite selbst kann jederzeit aktualisiert werden, der Inhalt bleibt.</p>
         </div>
       </div>
     </div>
@@ -1166,8 +1166,8 @@
   /* ============================ Modell ============================ */
   // Fassung: steht sichtbar in der Kopfzeile, damit man ohne Nachfragen sieht,
   // ob ein Brett hinterherhaengt. Bei jeder Aenderung an dieser Datei hochzaehlen.
-  var FASSUNG = "3.07";
-  var FASSUNG_DATUM = "2026-09-12";
+  var FASSUNG = "3.08";
+  var FASSUNG_DATUM = "2026-09-13";
 
   /* ============================ Kleine Helfer ============================ */
   var $ = function (id) { return document.getElementById(id); };
@@ -1341,7 +1341,7 @@
   }
   // Vorgabe 24 = Punktabstand des Hintergrunds (applyView). Schrittweite 0 bis 100 px, 0 heisst
   // frei. An/Aus liegt je Betrachter im Browser; die SCHRITTWEITE liegt seit 3.01 im Brett
-  // (meta/board.raster), damit alle Betrachter und Claude (pinit-schreiben) dasselbe Raster nutzen.
+  // (meta/board.raster), damit alle Betrachter und Claude (planit-schreiben) dasselbe Raster nutzen.
   // Ohne Speicher (Datei lokal) bleibt der Browser-Merker rb.rasterschritt der Rueckfall.
   var RASTER_VORGABE = 24, RASTER_MAX = 100;
   // Mausrad (2.29, Issue #3, Figma-Regel): der Browser verraet nie, ob Maus oder Touchpad —
@@ -4519,7 +4519,7 @@
     var v = titleEl.value.trim() || "Unbenanntes Brett";
     titleEl.value = v;
     putTitle(v);
-    document.title = v + " · Pinit";
+    document.title = v + " · PlanIt";
   });
 
   var toastTimer = null;
@@ -4755,8 +4755,8 @@
     // eigene deutsche. Damit gibt es kein zweites Format, das vom Schema wegdriften kann.
     var out = brettAlsJSON();
     var auftrag =
-      "Veroeffentliche mir mein eigenes Pinit (Fassung " + FASSUNG + ").\n\n" +
-      "Wenn Du die Datei pinit.html vorliegen hast (aus dem Team geteilt):\n" +
+      "Veroeffentliche mir mein eigenes PlanIt (Fassung " + FASSUNG + ").\n\n" +
+      "Wenn Du die Datei planit.html vorliegen hast (aus dem Team geteilt):\n" +
       "einfach die publishen, mit capabilities {db:{}} und einem Emoji als favicon. " +
       "Nichts umbauen, die Datei ist fertig.\n\n" +
       "Wenn Du die Datei NICHT hast: bau ein Whiteboard-Artifact mit\n" +
@@ -4968,8 +4968,8 @@
   }
 
   $("fassung").textContent = "v" + FASSUNG;
-  $("fassung").title = "Pinit Fassung " + FASSUNG + " vom " + FASSUNG_DATUM;
-  $("status").title = "Pinit Fassung " + FASSUNG + " vom " + FASSUNG_DATUM;
+  $("fassung").title = "PlanIt Fassung " + FASSUNG + " vom " + FASSUNG_DATUM;
+  $("status").title = "PlanIt Fassung " + FASSUNG + " vom " + FASSUNG_DATUM;
 
   function vorlageModus() {
     noStore = true;
@@ -5003,7 +5003,7 @@
       var v = d.exists && d.data() || {};
       if (typeof v.title === "string" && v.title && document.activeElement !== titleEl) {
         titleEl.value = v.title;
-        document.title = v.title + " · Pinit";
+        document.title = v.title + " · PlanIt";
       }
       var f = !!v.frozen;
       if (f !== frozen) {

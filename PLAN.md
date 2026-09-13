@@ -3,7 +3,7 @@ plan-status: fertig
 verifiziert-am:
 ---
 
-# Pinit — Plan
+# PlanIt — Plan
 
 <!-- Lebender Index + Richtung. Das `plan-status`-Feld oben IST das Feature-Gate
      (feature-* laufen nur bei exakt `verifiziert`). Diese Datei wandert NIE nach history/.
@@ -15,7 +15,7 @@ API, Figmas MCP ist im Free-Tarif nach wenigen Aufrufen aufgebraucht. Prozesse u
 Mockups sollen sich zeichnen **und mit Claude teilen** lassen — Claude liest und schreibt
 dieselben Elemente über die Artifact-Datenbank.
 
-**Roter Faden — verteilt wird die DATEI, nicht das Artifact.** `code/pinit.html` ist
+**Roter Faden — verteilt wird die DATEI, nicht das Artifact.** `code/planit.html` ist
 selbsttragend; wer sie hat, lässt sie sich von seinem Claude als eigenes Artifact
 veröffentlichen und hat sein eigenes Brett mit eigenem Speicher. Kein gemeinsamer
 Datentopf, keine fremde Verwaltung, kein Konto-Eigentum bei einer Person.
@@ -30,7 +30,7 @@ ungefährlich, weil der Inhalt in der Datenbank liegt, nicht in der Seite.
 ## Bereiche / grobe Architektur
 Drei Teile, alle in `code/` (Details + Datenschema → `CLAUDE.md`, Code-Landkarte):
 
-1. **Die Seite** (`pinit.html`) — Zeichenfläche, Werkzeuge, Reiter, Inspektor.
+1. **Die Seite** (`planit.html`) — Zeichenfläche, Werkzeuge, Reiter, Inspektor.
    Eine Datei, keine Fremdbibliothek, kein Build.
 2. **Der Speicher** — die Artifact-Datenbank (`nodes`/`edges`/`sheets`/`meta`). Die
    Grenze zwischen Seite und Inhalt; sie macht Updates gefahrlos und macht Claude
@@ -38,7 +38,7 @@ Drei Teile, alle in `code/` (Details + Datenschema → `CLAUDE.md`, Code-Landkar
    **Waisen-Regel (entschieden 2026-09-07, → E1):** der wirksame Reiter eines Elements ist
    der eigene, wenn es diesen Reiter gibt — sonst der erste. Ohne benannten Reiter gilt der
    implizite `haupt`. Damit vernichtet kein Reiter-Löschen Inhalt.
-3. **Die eine Veröffentlichung** — `pinit.html` als Artifact mit `{db:{}}`. *(Bis 2.10
+3. **Die eine Veröffentlichung** — `planit.html` als Artifact mit `{db:{}}`. *(Bis 2.10
    gab es eine zweite, „Vorlage“ ohne Speicher; 2026-09-07 abgeschafft: eine Datei, ein
    Artifact. Wer die Datei bekommt, veröffentlicht sie selbst.)*
 
@@ -81,7 +81,7 @@ Abgeschlossenes wandert nach `artefakte/`, damit diese Datei schlank bleibt (sie
 | 1.3 | 2026-09-07 | Anlege-Verbot des Auffang-Reiters von den Aufrufern IN die Funktion verlegt (in 1.2 galt es nur fuer einen von drei Wegen), Ladewettlauf-Merker erst bei server-endgueltigem Stand, Reiterwechsel mit Hinweis und Kamera, toter Listener bleibt sichtbar tot, Panel-Befundlisten nach artefakte/ |
 | 1.4 | 2026-09-07 | **Notfall:** 1.3 war am echten Brett kaputt (eine nie deklarierte Variable liess unter "use strict" jeden Snapshot scheitern, das Brett zeigte seinen Inhalt nicht mehr). Deklaration nachgetragen, Duplizieren-Knopf als vierter Anlege-Weg geschuetzt, Pruefer `undeklariert-pruefen.js` fuer genau diese Fehlerklasse gebaut, Patch-Werkzeug auf "erst alle Anker pruefen, dann schreiben" umgestellt |
 | 1.5 | 2026-09-07 | Groesse wird beim Anlegen aufgezogen statt gespawnt (Figma-Art, Klick = Standardgroesse), Textdarstellung je Element im Inspektor einstellbar (Schriftgrad, fett, Ausrichtung) mit den drei neuen Feldern `fs`/`bold`/`align` |
-| 1.6 | 2026-09-07 | Zusammenarbeit mit Claude: Notiz-Feld je Element (neues Feld `note`, Langtext, auf der Flaeche nur als Ecke markiert) und kopierbare Kennung im Inspektor. Dazu zwei **globale** Skills im Benutzer-Ordner (`~/.claude/skills/pinit-lesen`, `pinit-schreiben`), damit jedes Brett in jedem Projekt gelesen und beschrieben werden kann |
+| 1.6 | 2026-09-07 | Zusammenarbeit mit Claude: Notiz-Feld je Element (neues Feld `note`, Langtext, auf der Flaeche nur als Ecke markiert) und kopierbare Kennung im Inspektor. Dazu zwei **globale** Skills im Benutzer-Ordner (`~/.claude/skills/planit-lesen`, `planit-schreiben`), damit jedes Brett in jedem Projekt gelesen und beschrieben werden kann |
 | 1.7 | 2026-09-07 | Knopf „Mermaid“ heißt jetzt „Diagramm-Text“ (Tooltip erklärt, wo man ihn einfügt) — das Fachwort verstand niemand. Zusammen mit 1.6 veröffentlicht |
 | 1.8 | 2026-09-07 | Verschieben nimmt mit: ein Element zieht alles mit, was ganz in ihm und vor ihm liegt (Notiz als Traeger); Alt bewegt nur das Element. Rein geometrisch, kein Gruppen-Feld |
 | 1.9 | 2026-09-07 | Eigene offene Schreibvorgaenge zaehlen als Warte-Grund (`writes > 0` in `warteGrund`), mit 3-s-Notbremse: nach dem Mitnehmen kommen alle Kaesten in einem Sprung an statt einzeln |
@@ -89,13 +89,14 @@ Abgeschlossenes wandert nach `artefakte/`, damit diese Datei schlank bleibt (sie
 | 2.1 | 2026-09-07 | Umschalt+Klick nimmt Elemente in die Mehrfachauswahl auf oder heraus; Umschalt beim Rahmenziehen ergaenzt |
 | 2.2 | 2026-09-07 | Pfeile gehoeren zur Mehrfachauswahl: der Rahmen nimmt einen Pfeil, wenn er seine Linie beruehrt; Umschalt+Klick auf Pfeile; Entf loescht Kaesten und Pfeile zusammen |
 | 2.3 | 2026-09-07 | **Tabelle** als fuenfte Bauart (`kind: "table"`, Ueberschrift + Kopfzeile, neues Feld `cells`, Zellen per Doppelklick, Tab springt, Zeilen/Spalten im Inspektor) und **Stichpunkte** in jedem Element (Zeile mit `- ` wird als Punkt gezeigt, gespeichert bleibt roher Text). Nebenbei gefunden und behoben: Fokus-Zeitgeber loeschten fremde Editier-Merker |
+| 3.08 | 2026-09-13 | Umbenennung Pinit → PlanIt: Datei `code/planit.html`, Repo `luishindelang/planit`, Skills `planit-*`, Bretter „PlanIt · …“; Daten und Kennungen unverändert |
 | 3.07 | 2026-09-12 | Status-Ampel: klares Rot, Gelb, Grün (eigene Token) — offen und in Arbeit waren kaum zu unterscheiden |
 | 3.06 | 2026-09-12 | Nachbarschaft: was in einem gehobenen Element liegt, kommt mit nach vorn (vorher verschwand der Inhalt eines gewählten Rahmens hinter dem Rahmen) |
 | 3.05 | 2026-09-11 | Pfeiltext eines hervorgehobenen Pfeils (gewählt oder Nachbar) größer, fett und in Akzentfarbe |
 | 3.04 | 2026-09-11 | Kopfzeile zeigt nur noch „v3.04“ — das feste Wort „smartvillage“ (seit 2.20) ist raus |
 | 3.03 | 2026-09-11 | Rückgängig / Wiederholen (Strg+Z / Strg+Y): eigene Schritte dieser Sitzung als Dokument-Stände, abgelehnt bei fremder Änderung (N7); `dokSchreiben()` als der eine Weg in die Datenbank |
 | 3.02 | 2026-09-11 | Start/Ende: klein gezogene Kreise blieben nicht rund (`applyNodes` kappte auf 48 × 30); Mindestmaß je Bauart an einer Stelle |
-| 3.01 | 2026-09-11 | Raster-Schrittweite liegt im Brett (`meta/board.raster`) statt nur im Browser; `pinit-schreiben` liest sie und rastet neue Elemente darauf ein |
+| 3.01 | 2026-09-11 | Raster-Schrittweite liegt im Brett (`meta/board.raster`) statt nur im Browser; `planit-schreiben` liest sie und rastet neue Elemente darauf ein |
 | 3.00 | 2026-09-10 | Aufräumung ohne Verhaltensänderung: ein Bauplan für Datenbank-Dokumente, ein Anbinder für Inspektor-Felder, Auswahl-Helfer, `renderNodes`/`renderInspector` in Bausteine, eine `[hidden]`-Regel, Token für Code-/Status-Farben; Prüf-Geschirr `code/pruefung/` (Fingerabdruck-Vergleich, 74 Aufnahmen, 0 Unterschiede zu 2.51) |
 | 2.51 | 2026-09-10 | Tabelle: Inhalts-Textfeld „Als Text“ im Inspektor entfernt (Gitter und Doppelklick reichen) |
 | 2.50 | 2026-09-10 | Sichtbarkeit (Issue #8): Feld `hidden` — Element als blasser Umriss, Pfeile und alles darin unsichtbar; Knopf im Inspektor und Strg+Umschalt+H |
@@ -136,7 +137,7 @@ Abgeschlossenes wandert nach `artefakte/`, damit diese Datei schlank bleibt (sie
 | 2.15 | 2026-09-07 | Faust-Zeiger beim Verschieben von Elementen und beim Schieben mit „Bewegen“ (vorher nur bei mittlerer Maustaste) |
 | 2.14 | 2026-09-07 | Zahnrad oben rechts öffnet Einstellungen-Dialog: Tastenkürzel-Liste, Darstellung System/Hell/Dunkel (im Brett gespeichert, `meta/board.theme`), Infos (Fassung, Zähler, Grenzen, Hinweise für Claude). Ersetzt die Toast-Hilfe |
 | 2.13 | 2026-09-07 | Strg+D dupliziert, Strg+C/V kopiert und fügt ein (Einzel- und Mehrfachauswahl samt Pfeilen, interne Ablage, 24 px Versatz je Einfügen); Duplizieren-Knopf läuft über denselben Weg `einfuegen()` |
-| 2.12 | 2026-09-07 | Umbenennung Reißbrett → Pinit; Vorlage abgeschafft; Skill `pinit-veroeffentlichen` mit Bretter-Liste; neues Brett „Pinit · Allgemein Dashboard“ (privates Konto) |
+| 2.12 | 2026-09-07 | Umbenennung Reißbrett → Pinit (seit 3.08 PlanIt); Vorlage abgeschafft; Skill `planit-veroeffentlichen` mit Bretter-Liste; neues Brett „PlanIt · Allgemein Dashboard“ (privates Konto) |
 | 2.11 | 2026-09-07 | Raster einstellbar: Klick auf „Raster“ öffnet An/Aus und Schrittweite 0–100 px (Vorgabe 24 = Punktabstand), je Betrachter gemerkt. Prüfliste zu 2.10 in `artefakte/PRUEFUNG-2.10-2026-09-07.md` |
 | 2.10 | 2026-09-07 | Inspektor aufgeraeumt: vier klappbare Abschnitte (Einstellungen, Aussehen, Fuer Claude, Anordnen), Baustein-Art und Layout als Auswahlliste, Kennung oben, 232 px breit |
 | 2.9 | 2026-09-07 | **Paket C (Seite):** Reiter-Typ (`sheets.type`), Einfrieren (`meta/board.frozen`, sperrt alle Schreibwege, Stand in die Ablage), Verweis + Status je Element (`link`, `status`) |
@@ -179,13 +180,13 @@ richtig zu bauen? Reihenfolge = Pakete, so abgestimmt.
 ### Paket C — Übergabe an Claude
 - [x] **C1 Reiter-Typ** (2.9) (Feld `type` an `sheets`): Bildschirm · Architektur ·
   Datenmodell · Ablauf. Der Lese-Skill wertet jeden Reiter passend aus.
-- [x] **C2 Spezifikations-Export** (Skill `pinit-lesen … spec`, 2026-09-07; erster echter Lauf steht aus) (`pinit-lesen` ausbauen): je Bildschirm die Bausteine
+- [x] **C2 Spezifikations-Export** (Skill `planit-lesen … spec`, 2026-09-07; erster echter Lauf steht aus) (`planit-lesen` ausbauen): je Bildschirm die Bausteine
   mit Bedeutung, je Datenmodell die Felder und Beziehungen, je Ablauf die Kette — als
   Arbeitsauftrag, nicht als Abzug. Konzept vor dem Bau.
-- [x] **C3 Bausätze** (Skill `pinit-schreiben`, Abschnitt 5b, 2026-09-07; erster echter Lauf steht aus) (`pinit-schreiben` ausbauen): fertige Blöcke aufs Brett —
+- [x] **C3 Bausätze** (Skill `planit-schreiben`, Abschnitt 5b, 2026-09-07; erster echter Lauf steht aus) (`planit-schreiben` ausbauen): fertige Blöcke aufs Brett —
   Login-Seite, Liste mit Suche, Formular, CRUD-Datenmodell.
 - [x] **C4 Stand einfrieren** (2.9; Datei-Ablage = Ablage/Clipboard statt `downloads`, damit die Zwei-Artifacts-Invariante unangetastet bleibt): Knopf „Einfrieren“ → das Brett ist **gesperrt**, auch für
-  Claude: die Seite lehnt Änderungen ab (Hinweis), `pinit-schreiben` prüft die Sperre und
+  Claude: die Seite lehnt Änderungen ab (Hinweis), `planit-schreiben` prüft die Sperre und
   bricht ab. Plus Ablage des Stands als Datei (`downloads`-Fähigkeit). Auftauen nur
   bewusst über einen zweistufigen Knopf. **Prämisse:** die Sperre liegt in `meta/board`
   (`frozen: true`), damit alle Betrachter und Claude dieselbe Wahrheit sehen.

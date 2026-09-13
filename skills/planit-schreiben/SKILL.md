@@ -1,11 +1,11 @@
 ---
-name: pinit-schreiben
-description: Schreibt Elemente, Pfeile, Reiter oder Notizen in ein Pinit-Brett (früher „Reißbrett“) (Whiteboard-Artifact mit db-Capability) über die Artifact-Datenbank — aus einer Liste, einem Text, einem Mermaid-Flowchart, einem Bausatz („Login-Seite“, „Liste mit Suche“, „Formular“, „CRUD-Datenmodell“) oder einer Änderungsanweisung („ändere nodes/abc“, „häng an Kasten X eine Notiz“). Nutze diesen Skill bei „schreib das aufs Brett“, „leg mir den Prozess in Pinit an“, „mach aus dem Mermaid ein Brett“, „ergänze auf dem Brett“, „ändere Kasten …“, oder wenn eine Artifact-URL zusammen mit Brett/Whiteboard und einem Schreibwunsch genannt wird. Funktioniert in jedem Projekt; die Brett-URL kommt vom Nutzer.
+name: planit-schreiben
+description: Schreibt Elemente, Pfeile, Reiter oder Notizen in ein PlanIt-Brett (früher „Reißbrett“, bis 3.07 „Pinit“) (Whiteboard-Artifact mit db-Capability) über die Artifact-Datenbank — aus einer Liste, einem Text, einem Mermaid-Flowchart, einem Bausatz („Login-Seite“, „Liste mit Suche“, „Formular“, „CRUD-Datenmodell“) oder einer Änderungsanweisung („ändere nodes/abc“, „häng an Kasten X eine Notiz“). Nutze diesen Skill bei „schreib das aufs Brett“, „leg mir den Prozess in PlanIt an“, „mach aus dem Mermaid ein Brett“, „ergänze auf dem Brett“, „ändere Kasten …“, oder wenn eine Artifact-URL zusammen mit Brett/Whiteboard und einem Schreibwunsch genannt wird. Funktioniert in jedem Projekt; die Brett-URL kommt vom Nutzer.
 ---
 
-# Pinit schreiben
+# PlanIt schreiben
 
-Das Pinit ist eine HTML-Seite als Claude-Artifact; der Inhalt liegt in dessen
+Das PlanIt ist eine HTML-Seite als Claude-Artifact; der Inhalt liegt in dessen
 Artifact-Datenbank. Du schreibst mit dem Artifact-Werkzeug, `action: "write_db"`.
 **Die Seite aller offenen Betrachter aktualisiert sich sofort** — jeder Schreibvorgang
 ist live. Es gibt **kein Rückgängig**.
@@ -128,7 +128,7 @@ sonst eine Beschriftung über dem Block. Reihenfolge der Pfeile = Leserichtung f
 
 ## 5. Bestehendes ändern
 - Der Nutzer nennt Elemente meist über die Kennung aus dem Inspektor (`nodes/abc-123`)
-  oder aus `/pinit-lesen` (⟨nodes/abc⟩). Ohne Kennung: über `text` suchen; bei mehreren
+  oder aus `/planit-lesen` (⟨nodes/abc⟩). Ohne Kennung: über `text` suchen; bei mehreren
   Treffern nachfragen, nicht raten.
 - `db_op: "update"` für einzelne Felder (`note`, `text`, `color`), damit Position und
   Rest unangetastet bleiben. `set` nur für neue Dokumente.

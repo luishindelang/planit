@@ -1,5 +1,5 @@
 /**
- * Prüf-Geschirr (seit 3.00): baut aus code/pinit.html eine Test-Kopie code/_t.html mit
+ * Prüf-Geschirr (seit 3.00): baut aus code/planit.html eine Test-Kopie code/_t.html mit
  *   - einer Schein-Datenbank (zeichnet jedes set()/delete() auf, liefert nie Stände),
  *   - einem Haken window.__rb() auf die inneren Funktionen,
  *   - dem festen Ablauf aus szenario.js (window.__szenario).
@@ -27,7 +27,7 @@
 const fs = require("fs");
 const path = require("path");
 const R = path.resolve(__dirname, "..", "..") + "/";
-let s = fs.readFileSync(R + "code/pinit.html", "utf8");
+let s = fs.readFileSync(R + "code/planit.html", "utf8");
 
 const pre = `<meta charset="utf-8">
 <style>#toast { transition: none !important; }</style>
@@ -75,7 +75,7 @@ const hook = `
 `;
 const szenario = fs.readFileSync(path.join(__dirname, "szenario.js"), "utf8");
 
-if (s.split("<script>").length - 1 !== 1) throw new Error("pinit.html muss genau einen <script>-Block haben");
+if (s.split("<script>").length - 1 !== 1) throw new Error("planit.html muss genau einen <script>-Block haben");
 s = s.replace("<script>", pre + "<script>");
 const ende = "\n})();\n</script>";
 const i = s.lastIndexOf(ende); if (i < 0) throw new Error("Skript-Ende fehlt");

@@ -1,4 +1,6 @@
-# Pinit
+# PlanIt
+
+*(Bis Fassung 3.07 „Pinit“, davor bis 2.11 „Reißbrett“ — umbenannt 2026-09-13; der Ordner heißt noch `reissbrett`.)*
 
 <!-- Projekt-„Verfassung" — immer geladen, schlank halten.
      Feste, entschiedene Invarianten stehen HIER (nicht in REGELN.md).
@@ -27,12 +29,12 @@ Browser) liefert `claude.use("db")` `null` — dann läuft die Seite im **Modus 
 ## Die Veröffentlichungen (Artifact-URLs)
 Ein Artifact kann nur das Konto aktualisieren, das es veröffentlicht hat — Luis hat zwei
 (Arbeit und privat). Vollständige Liste mit Konto-Vermerk:
-`~/.claude/skills/pinit-veroeffentlichen/bretter.json`.
+`~/.claude/skills/planit-veroeffentlichen/bretter.json`.
 
 | | URL | Konto | `capabilities` |
 |---|---|---|---|
-| **Pinit · Allgemein Dashboard** (privat, projektübergreifend, seit 2.12) | `https://claude.ai/code/artifact/f0313815-8831-4ec5-8613-9e28915e7051` | privat | `{db: {}}` |
-| **Pinit** (erstes Brett, Arbeits-Konto — steht NICHT in der privaten `bretter.json`; auf der Arbeit eigene Liste anlegen) | `https://claude.ai/code/artifact/cf961f04-6f2e-41d2-9d5a-eb3a1f8b1a04` | Arbeit | `{db: {}}` |
+| **PlanIt · Allgemein Dashboard** (privat, projektübergreifend, seit 2.12) | `https://claude.ai/code/artifact/f0313815-8831-4ec5-8613-9e28915e7051` | privat | `{db: {}}` |
+| **PlanIt** (erstes Brett, Arbeits-Konto — steht NICHT in der privaten `bretter.json`; auf der Arbeit eigene Liste anlegen) | `https://claude.ai/code/artifact/cf961f04-6f2e-41d2-9d5a-eb3a1f8b1a04` | Arbeit | `{db: {}}` |
 
 **Seit 2.11 gibt es keine „Vorlage“ mehr.** Die frühere zweite Veröffentlichung
 „Reißbrett Vorlage“ (`b059cf88-e25b-4460-a703-6a8abf4dd1f5`, `capabilities {}`) wird **nicht
@@ -40,23 +42,23 @@ mehr gepflegt** und bleibt auf 2.10 stehen; die Kopie `reissbrett-vorlage.html` 
 Erzeuger `vorlage-erzeugen.js` sind gelöscht. *(Entschieden 2026-09-07 von Luis: eine Datei,
 ein Artifact — einfacher zu entwickeln, und wer die Datei hat, veröffentlicht ohnehin selbst.)*
 
-**Veröffentlichen läuft über den globalen Skill `pinit-veroeffentlichen`**
-(`~/.claude/skills/pinit-veroeffentlichen/`, Liste aller Bretter in `bretter.json` daneben).
+**Veröffentlichen läuft über den globalen Skill `planit-veroeffentlichen`**
+(`~/.claude/skills/planit-veroeffentlichen/`, Liste aller Bretter in `bretter.json` daneben).
 Ohne Angabe aktualisiert er **alle** Bretter, mit Name/URL eins, mit „neu <Name>“ legt er ein
 Brett für ein anderes Projekt an (eigener Galerie-Name über eine Wegwerf-Kopie mit anderem
 `<title>`, eigene Datenbank; URL landet in dessen `CLAUDE.md`). Regeln, die dahinterstehen:
 die URL muss als `url` mitgegeben werden (sonst entsteht ein neues, leeres Artifact),
 `capabilities` weglassen (die gespeicherte `{db:{}}` bleibt), `label` = Fassung, und
-`pinit.html` wird für keinen Namen umgeschrieben — nur die Kopie.
+`planit.html` wird für keinen Namen umgeschrieben — nur die Kopie.
 
 **Zugriff von überall:** das Artifact hängt an Luis' Konto, nicht an diesem Ordner. Jede
 Claude-Code-Sitzung in jedem Projekt kann mit der URL per `read_db`/`write_db` an die Daten —
-darum liegen die Skills `pinit-lesen`/`pinit-schreiben` im Benutzer-Ordner.
+darum liegen die Skills `planit-lesen`/`planit-schreiben` im Benutzer-Ordner.
 
 **Wie die Datei verteilt wird (seit 2.20):** öffentliches GitHub-Repo
-`https://github.com/luishindelang/pinit`, Download der aktuellen Fassung unter
-`https://raw.githubusercontent.com/luishindelang/pinit/main/code/pinit.html`. Nach jeder Fassung
-„commit und push“. **Und danach Pflicht: ALLE Bretter aktualisieren** — Skill `pinit-veroeffentlichen`
+`https://github.com/luishindelang/planit`, Download der aktuellen Fassung unter
+`https://raw.githubusercontent.com/luishindelang/planit/main/code/planit.html`. Nach jeder Fassung
+„commit und push“. **Und danach Pflicht: ALLE Bretter aktualisieren** — Skill `planit-veroeffentlichen`
 ohne Angabe (jeder Eintrag in `bretter.json`, nicht nur das Dashboard). Ein Brett, das nach einem Commit
 auf `main` noch die alte Fassung zeigt, ist ein Fehler, kein Zustand (Luis, 2026-09-11). Grenze: das
 Arbeits-Brett gehört dem Arbeitskonto und lässt sich nur dort aktualisieren. Die Skills liegen als Kopie in `skills/` (nach `~/.claude/skills/` kopieren);
@@ -65,8 +67,8 @@ Bretter gibt es weiterhin nicht (s. `PLAN.md`, Roter Faden) — die Fassungsnumm
 zeigt, wer hinterherhängt.
 
 **Wie ein Empfänger sein Brett aktualisiert** (es gibt kein Auto-Update — s. Invarianten):
-er bekommt die neue `pinit.html`, vergleicht die Fassung in seiner Kopfzeile mit der
-in der Datei und sagt seinem Claude: *„aktualisier mein Pinit mit dieser Datei, gleiche
+er bekommt die neue `planit.html`, vergleicht die Fassung in seiner Kopfzeile mit der
+in der Datei und sagt seinem Claude: *„aktualisier mein PlanIt mit dieser Datei, gleiche
 URL, capabilities nicht anfassen."* **Sein Inhalt bleibt** — die Zeichnungen liegen in der
 Datenbank des Artifacts, nicht in der Seite, und die übersteht ein Republish. Wer neu
 anfängt, lässt die Datei einfach mit `capabilities {db:{}}` veröffentlichen.
@@ -75,14 +77,14 @@ anfängt, lässt die Datei einfach mit `capabilities {db:{}}` veröffentlichen.
 `code/` trägt zwei Dateien. Es gibt bewusst **keinen Build und keine Fremdbibliothek** —
 die HTML ist das lieferbare Artefakt und muss ohne Werkzeug weitergegeben werden können.
 
-- **`code/pinit.html`** — die **eine maßgebliche Quelle**. Selbsttragende Seite:
+- **`code/planit.html`** — die **eine maßgebliche Quelle**. Selbsttragende Seite:
   Farbtoken (Hell/Dunkel) · Kopfzeile mit Fassungsnummer · Reiter-Leiste · Zeichenfläche
   (Verschieben/Zoomen) · Knoten (`box`, `sticky`, `diamond`, `text`) · Pfeile · Inspektor ·
   Speicher-Anschluss über `claude.use("db")`. Zugleich die Datei, die an Kollegen geht.
 - **`code/undeklariert-pruefen.js`** — Prüfschritt 3: findet Zuweisungen an nie deklarierte
   Namen (Laufzeitfehler unter `"use strict"`, die `node --check` durchlässt).
 
-Abschnitte in `pinit.html`, in der Reihenfolge der Datei (vollständig — wer hier etwas
+Abschnitte in `planit.html`, in der Reihenfolge der Datei (vollständig — wer hier etwas
 ergänzt, hält die Liste mit):
 1. `<style>`: Farbtoken für Hell/Dunkel (die Dunkel-Palette steht bewusst zweimal — Media-Query und Attribut lassen sich nicht in einer Regel verbinden, Kommentar im CSS), seit 3.00 **eine** globale `[hidden]`-Regel, Kopfzeile, Reiterleiste, Knoten, Pfeile, Inspektor.
 2. Markup: Kopfzeile mit Fassung und Werkzeugleiste · Reiterleiste `#tabs` · Zeichenfläche
@@ -308,13 +310,13 @@ Feature-Kandidat, kein heutiges Verhalten. Textfelder werden beim Einlesen gekap
 (Element 2000, Pfeil 200, Reitername 80 Zeichen).
 - `meta/board`: `title` · **`frozen`** (2.9, boolean) · **`theme`** (2.14: "system" | "light" | "dark",
   `themeLesen()`; gilt für alle Betrachter, `themeAnwenden()` setzt `data-theme` am Root — bei
-  "system" wird das Attribut entfernt und die Wahl des Artifact-Rahmens gilt) · **`raster`** (3.01: Schrittweite des Rasters in Brett-Pixeln, 0–100, 0 = frei, `rasterLesen()`; fehlt = 24; Schreiber wie `pinit-schreiben` legen `x/y/w/h` auf Vielfache davon). `putBoard(title, frozen,
+  "system" wird das Attribut entfernt und die Wahl des Artifact-Rahmens gilt) · **`raster`** (3.01: Schrittweite des Rasters in Brett-Pixeln, 0–100, 0 = frei, `rasterLesen()`; fehlt = 24; Schreiber wie `planit-schreiben` legen `x/y/w/h` auf Vielfache davon). `putBoard(title, frozen,
   theme)` schreibt **immer alle vier** (`raster` aus `RASTER`). **Eingefroren heißt: niemand ändert etwas — auch
   Claude nicht.** Die Seite sperrt alle Schreibwege (`gesperrt()` an jedem Erzeuger/Änderer, `body.frozen`
   legt Inspektor, Werkzeuge, Reiter-Knöpfe und Titel stumpf, `track()` schreibt als letzte Verteidigung
   nichts außer dem Auftauen), zeigt das Abzeichen EINGEFROREN und legt beim Einfrieren den Stand als JSON
   in die Ablage (`brettAlsJSON()`, dieselbe Nutzlast wie die Übergabe). `write_db`-Schreiber (der Skill
-  `pinit-schreiben`) lesen `meta/board` zuerst und brechen bei `frozen: true` ab. `set()` auf `meta/board`
+  `planit-schreiben`) lesen `meta/board` zuerst und brechen bei `frozen: true` ab. `set()` auf `meta/board`
   ersetzt das ganze Dokument — **immer `title` und `frozen` zusammen schreiben** (`putBoard`).
 
 ## Feste Invarianten (Verfassung — nur bewusst per Hand / `projekt-neu` ändern)
@@ -330,12 +332,12 @@ Feature-Kandidat, kein heutiges Verhalten. Textfelder werden beim Einlesen gekap
   das ist dann eine Größen-gegen-Treue-Abwägung, keine Fehlerbehebung.
   *(Entschieden 2026-09-07 als E3, nachdem zwei Review-Brillen den Widerspruch zwischen
   dem alten Wortlaut und der eigenen HTML gemeldet hatten.)*
-- **`code/pinit.html` ist die einzige Quelle und das einzige Artifact.** Keine
+- **`code/planit.html` ist die einzige Quelle und das einzige Artifact.** Keine
   erzeugte Kopie, keine zweite Veröffentlichung. *(Bis 2.10 gab es eine „Vorlage“ als
   zweites Artifact ohne `db`; 2026-09-07 bewusst abgeschafft.)* Der Modus ohne Speicher
   bleibt im Code: er greift, wenn `claude.use("db")` `null` liefert oder `claude` fehlt
   (Datei lokal geöffnet) — so bleibt die Datei lokal testbar.
-- **Die Fassungsnummer wird bei JEDER Änderung an `pinit.html` hochgezählt**
+- **Die Fassungsnummer wird bei JEDER Änderung an `planit.html` hochgezählt**
   (`FASSUNG` + `FASSUNG_DATUM` im Skript, sichtbar in der Kopfzeile). Sie ist das einzige
   Mittel, um verteilte Bretter auseinanderzuhalten — es gibt kein Auto-Update.
 - **Keine Browser-Dialoge.** Kein `prompt()`, `confirm()` oder `alert()` — Artifact-Rahmen
@@ -396,7 +398,7 @@ Feature-Kandidat, kein heutiges Verhalten. Textfelder werden beim Einlesen gekap
   2. **Skript-Syntax.** Nur der `<script>`-Block (Inline-Handler in HTML-Attributen gibt es
      bewusst keine), mit genau diesem Kommando:
      ```bash
-     node -e "const fs=require('fs');fs.writeFileSync('rb.js',fs.readFileSync('pinit.html','utf8').match(/<script>([\s\S]*)<\/script>/)[1])" && node --check rb.js && rm rb.js
+     node -e "const fs=require('fs');fs.writeFileSync('rb.js',fs.readFileSync('planit.html','utf8').match(/<script>([\s\S]*)<\/script>/)[1])" && node --check rb.js && rm rb.js
      ```
   3. **Undeklarierte Zuweisungen.** `node code/undeklariert-pruefen.js` — muss für beide
      Dateien „ok“ melden. **Warum als eigener Schritt:** `node --check` aus Schritt 2 prüft
@@ -465,13 +467,14 @@ Feature-Kandidat, kein heutiges Verhalten. Textfelder werden beim Einlesen gekap
 
   **Ausführungs-Nachweise** (das Protokoll je Fassung) stehen in
   `artefakte/NACHWEISE-2026-09-07.md` — dort **fortschreiben**, hier steht nur der jüngste:
+  - **Fassung 3.08, 2026-09-13 (Umbenennung Pinit → PlanIt):** Luis, 2026-09-13: „kannst du unser projekt hier umbenennen von Pinit zu PlanIt“. Neues GitHub-Repo `luishindelang/planit` (Remote umgestellt), Datei `code/pinit.html` → `code/planit.html`, `<title>`, Kopfzeile, Tooltips, Hinweis-Texte und die Übergabe-Anleitung sagen PlanIt; Skills heißen `planit-lesen`/`planit-schreiben`/`planit-veroeffentlichen` (Repo-Kopie und `~/.claude/skills/`), alle drei Bretter in `bretter.json` heißen „PlanIt · …“ (gleiche URLs, gleicher Inhalt). Datenschema, Browser-Merker (`rb.*`) und Dokument-Kennungen unverändert — ein Brett aus 3.07 liest sich ohne Änderung. `artefakte/` bleibt beim alten Namen (Geschichte). Der Projektordner heißt weiterhin `reissbrett` (Umbenennung von außen, nicht aus der laufenden Sitzung). Schritte 2, 3, 4 grün, `mk-test.js` baut. Schritte 6 und 7 stehen aus.
   - **Fassung 3.07, 2026-09-12 (Status-Ampel klarer):** „offen“ (gedecktes `--danger` #a83232) und „in Arbeit“ (Orange `--warn` #d3ab5c) waren kaum zu unterscheiden (Luis, 2026-09-12). Drei eigene Token nur für den Statuspunkt: `--st-offen` #e03434 (klares Rot), `--st-arbeit` #f2c218 (Gelb), `--st-fertig` #2fb36a (Grün) — `--danger`/`--warn`/`--ok` bleiben für Knöpfe und Statuszeile unverändert. Gleiche Farben hell und dunkel (gesättigt genug für beide). Schritte 2, 3, 4 grün. Schritt 5: CSS-Regeln geprüft. Schritte 6 und 7 stehen aus.
   - **Fassung 3.06, 2026-09-12 (Nachbarschaft: Inhalt kommt mit nach vorn):** ein gewählter Rahmen sprang mit seinen Nachbarn auf `topZ + 2`, die Kästen DARIN blieben auf ihrem `z` und verschwanden hinter dem Rahmen (Luis, 2026-09-11, zwei Bildschirmfotos). `nachbarschaft()` liefert jetzt zusätzlich `innen` (Map Kennung → Abstand): alles, was nach der Mitnehmen-Regel (`mitnehmer()`) ganz in einem gehobenen Element und davor liegt, kommt auf `topZ + 2 + Abstand` (Abstand = eigenes z − Träger-z, mindestens 1 — Verschachtelungen behalten ihre Reihenfolge). `ebeneVon(id, n, nah)` ist die EINE Stelle für die Zeichen-Ebene; `knotenBauen` und `renderWires` (Pfeile ohne `.nah`: Minimum der beiden Enden) fragen sie. Schritte 2, 3, 4 grün. Schritt 5 per Ereignis (Prüf-Geschirr): Rahmen F (z 1) mit A (z 2) und B (z 3) darin, C außen, Pfeile F→C und A→B; F gewählt → F 2010, C 2010 (`.nah`), A 2012, B 2014, Pfeil A→B 2011 (über F, unter A), Pfeil F→C 2007 wie bisher. Schritte 6 und 7 stehen aus.
   - **Fassung 3.05, 2026-09-11 (Pfeiltext wird mit hervorgehoben):** bei der Nachbarschaft (2.37) wurden Pfeile dicker und blau, ihr Text blieb klein und grau (Luis, 2026-09-11). Eine CSS-Regel: `g.wire.sel text.elabel, g.wire.nah text.elabel` → 13 px, fett (600), Akzentfarbe — gilt für Pfeiltext und Endbeschriftungen, beim gewählten Pfeil wie beim Nachbar-Pfeil. Schritte 2, 3, 4 grün. Schritt 5 per Messung (Prüf-Geschirr): A→B mit Text „ja“, A gewählt → Text 13 px / 600 / Akzent; Esc → 11 px / 500 / `--ink-2`. Schritte 6 und 7 stehen aus.
   - **Fassung 3.04, 2026-09-11 (Kopfzeile ohne „smartvillage“):** das Wort stand seit 2.20 fest im Markup (`#fassung`) und im Skript („smartvillage · v…“) — ein Rest des ersten Einsatz-Projekts, für eine verteilte Datei falsch (Luis, 2026-09-11). Jetzt zeigt die Kopfzeile nur „v3.04“. Schritte 2, 3, 4 grün. Schritt 5: Kopfzeile geprüft. Schritte 6 und 7 stehen aus.
   - **Fassung 3.03, 2026-09-11 (Rückgängig / Wiederholen, Strg+Z / Strg+Y):** Luis: „ganz wichtig, Strg+Z und Strg+Y für die letzten Schritte“. Umsetzung nach Plan-Prämisse N7 — kein Operations-Protokoll, sondern Dokument-Stände: `dokSchreiben(pfad, daten)` ist jetzt der EINE Weg in die Datenbank (`putNode`/`putEdge`/`putSheet`/`dropDoc` laufen darüber; `putBoard` bewusst nicht — Titel, Einfrieren, Darstellung, Raster sind kein Rückgängig-Fall). Jeder Schreibvorgang merkt sich vorher/nachher des Dokuments (`letzterStand`, gefüttert aus den Ständen per `standMerken()` in den drei apply-Funktionen und aus eigenen Schreibvorgängen); alle Schreibvorgänge eines Ereignis-Durchlaufs bilden EINEN Schritt (`offenerSchritt`, geschlossen per `setTimeout 0` — Löschen mit Pfeilen, Einfügen, Mitnehmen, Ausrichten sind je ein Schritt). `rueckgaengig(zurueck)` schreibt vorher bzw. nachher zurück, aber nur, wenn jedes Dokument des Schritts heute noch genau dem gemerkten Stand entspricht (`stabil()` = stabiler JSON-Vergleich); sonst Toast und der Schritt ist verworfen — fremde Arbeit wird nie stumm zurückgesetzt. Bis 100 Schritte, nur diese Sitzung, nur mit Speicher (ohne: Toast); eingefroren greift `gesperrt()`. Strg+Umschalt+Z = Wiederholen. Beim Tippen in einem Feld gilt weiter das Rückgängig des Browsers (der Tastatur-Handler tritt dort nicht an). Schritte 2, 3, 4 grün. Schritt 5 per Ereignis (Prüf-Geschirr): Kasten anlegen, „Kasten“ tippen, um 100/50 verschieben → drei Schritte; Strg+Z → `set` mit alter Position; Strg+Z → `set` mit Text „“; Strg+Z → `del`; Strg+Z → „Nichts zum Rückgängigmachen.“; Strg+Y, Strg+Umschalt+Z, Strg+Y bauen alles in derselben Reihenfolge wieder auf; Strg+Y → „Nichts zum Wiederholen.“; fremder Stand mit `x: 999` eingespielt → Strg+Z: Toast „… 1 Dokument wurde inzwischen von jemand anderem geändert.“, kein Schreibvorgang, auch der ältere Schritt am selben Dokument abgelehnt. Schritte 6 und 7 stehen aus — **am echten Brett prüfen, dass Strg+Z nach einem Verschieben greift** (der Stand aus der Datenbank muss dem geschriebenen Dokument gleichen; tut er das nicht, meldet jedes Rückgängig „von jemand anderem geändert“).
   - **Fassung 3.02, 2026-09-11 (Start/Ende: kleine Kreise blieben nicht rund):** ein Kreis, kleiner als 48 gezogen, wurde zur liegenden Ellipse und „wackelte“ dabei — `groesseZiehen` und die Größen-Felder ließen 24 zu, aber `applyNodes` kappte JEDES eingelesene Dokument auf 48 × 30; der eigene Schreibvorgang kam als Stand zurück und überschrieb den runden Wert (Luis, 2026-09-11). Jetzt EINE Stelle fürs Mindestmaß: `MIN_W`/`MIN_H`/`MIN_KREIS` mit `minBreite(n)`/`minHoehe(n)` direkt nach `ohneText()`; `addNode`, `groesseZiehen`, `groesseAusFeldern` und `applyNodes` fragen sie. Schritte 2, 3, 4 grün. Schritt 5 per Ereignis (Prüf-Geschirr): Start 40 × 40 angelegt, SO-Griff 200 px nach innen → während und nach dem Ziehen 24 × 24, Dokument `w: 24, h: 24`; Stand mit 24 × 24 eingespielt → bleibt 24 × 24, DOM 24 × 24, `border-radius: 50%`; Stand mit Kasten 10 × 5 → 48 × 30, Ende 10 × 5 → 24 × 24. Schritte 6 und 7 stehen aus.
-  - **Fassung 3.01, 2026-09-11 (Raster-Schrittweite im Brett):** die Schrittweite unten rechts („Raster 24“) lag bisher nur im Browser des Betrachters — Claude konnte sie nicht lesen (Luis, 2026-09-11: „ich dachte, das stellt man unten rechts fürs Brett ein“). Jetzt neues Feld `meta/board.raster` (Schrittweite in px, 0 = frei): `putBoard` schreibt es immer mit, der Schieberegler schreibt erst beim Loslassen (`change`), das Zahlenfeld bei `change`; ein hereinkommender Stand mit `raster` setzt `RASTER` und die Anzeige; eingefroren wird nur der Hinweis gezeigt und die Anzeige zurückgesetzt. An/Aus bleibt je Fenster (`rb.raster`); ohne Speicher bleibt `rb.rasterschritt` der Rückfall. `brettAlsJSON` führt das Feld. Skills: `pinit-schreiben` liest `raster` zusammen mit `frozen` aus `meta/board` und legt jedes `x/y/w/h` auf ein Vielfaches (Vorgabe 24, 0 = frei → 8er-Schritte), Gegenprüfung vor dem Schreiben; `pinit-lesen` kennt das Feld. Schritte 2, 3, 4 grün. Schritt 5 per Ereignis (Prüf-Geschirr): Regler auf 40 → Anzeige „Raster 40“, KEIN Schreibvorgang; Loslassen → `set meta/board {…, raster: 40}`; Zahlenfeld 16 → `raster: 16`, `snap(37)` = 32; Titel ändern → schreibt `raster: 16` mit; Export trägt `raster`; kein `rb.rasterschritt` im Browser (Speicher-Modus); eingefroren → Toast, Anzeige bleibt 16, 0 Schreibvorgänge. Fingerabdruck gegen 2.51: nur `raster` in den Dokumenten, Fassungstext und der neue `<b>` im Hinweis der Einstellungen. Schritte 6 und 7 stehen aus.
+  - **Fassung 3.01, 2026-09-11 (Raster-Schrittweite im Brett):** die Schrittweite unten rechts („Raster 24“) lag bisher nur im Browser des Betrachters — Claude konnte sie nicht lesen (Luis, 2026-09-11: „ich dachte, das stellt man unten rechts fürs Brett ein“). Jetzt neues Feld `meta/board.raster` (Schrittweite in px, 0 = frei): `putBoard` schreibt es immer mit, der Schieberegler schreibt erst beim Loslassen (`change`), das Zahlenfeld bei `change`; ein hereinkommender Stand mit `raster` setzt `RASTER` und die Anzeige; eingefroren wird nur der Hinweis gezeigt und die Anzeige zurückgesetzt. An/Aus bleibt je Fenster (`rb.raster`); ohne Speicher bleibt `rb.rasterschritt` der Rückfall. `brettAlsJSON` führt das Feld. Skills: `planit-schreiben` liest `raster` zusammen mit `frozen` aus `meta/board` und legt jedes `x/y/w/h` auf ein Vielfaches (Vorgabe 24, 0 = frei → 8er-Schritte), Gegenprüfung vor dem Schreiben; `planit-lesen` kennt das Feld. Schritte 2, 3, 4 grün. Schritt 5 per Ereignis (Prüf-Geschirr): Regler auf 40 → Anzeige „Raster 40“, KEIN Schreibvorgang; Loslassen → `set meta/board {…, raster: 40}`; Zahlenfeld 16 → `raster: 16`, `snap(37)` = 32; Titel ändern → schreibt `raster: 16` mit; Export trägt `raster`; kein `rb.rasterschritt` im Browser (Speicher-Modus); eingefroren → Toast, Anzeige bleibt 16, 0 Schreibvorgänge. Fingerabdruck gegen 2.51: nur `raster` in den Dokumenten, Fassungstext und der neue `<b>` im Hinweis der Einstellungen. Schritte 6 und 7 stehen aus.
   - **Fassung 3.00, 2026-09-10 (Aufräumung ohne Verhaltensänderung):** derselbe Funktionsumfang wie 2.51, aber weniger Doppeltes: **ein** Bauplan für Datenbank-Dokumente (`knotenDaten(n, sheet)`/`pfeilDaten(e, von, nach, sheet)` — vorher stand er dreimal, in `putNode`, der Ablage und `brettAlsJSON`); **ein** Anbinder für alle Inspektor-Textfelder (`feldAnbinden()`, registriert sie zugleich für `inspektorAbschliessen()`, vorher sieben Kopien des change/Enter/Esc-Musters); `renderInspector` über Zeilen-Tabellen (`INSP_ZEILEN`/`inspZeilen()`, `INSP_KNOEPFE`/`inspKnoepfe()`, `wertSetzen()`) statt 30 Einzelzeilen je Zweig; `renderNodes` in Bausteine (`knotenBauen` = `knotenFarben` + `knotenInhalt` mit `codeRandBauen`/`modellBauen` + `markenSetzen`, Griffe `griffeBauen`); Auswahl-Helfer (`auswahlLeeren`/`nichtsWaehlen`/`waehlen`/`gewaehlterKnoten`/`gewaehlterPfeil`/`gewaehlteKnotenIds` — die „beide Mengen leeren“-Regel steht damit an EINER Stelle statt an zehn); kleine Helfer (`$`, `svgEl`, `leeren`, `naechst`, `knotenEl`, `druecken`, `vergessen`); `TASTE` aus `TOOLS` abgeleitet statt zweiter Liste; Menü-Helfer für Reiter- und Zellen-Menü; `standAngewendet()` als gemeinsamer Abschluss der drei apply-Funktionen; `tabellenGriffAnfassen()` aus dem mousedown herausgelöst; `nachbarKanten()` für die Hilfslinien; Ebenen über `Z_BASIS`/`ebeneZ()`. CSS: **eine** globale `[hidden]`-Regel (ersetzt acht Einzelregeln; die Artifact-Hülle setzt dieselbe — damit verhält sich die Datei lokal wie veröffentlicht: der Knopf „Eigenes Brett anlegen“ und die Senkrecht-Knöpfe sind lokal jetzt wirklich unsichtbar, wenn `hidden`), ein Grundstil für Inspektor-Felder, Ring-Regeln als `:is()`-Liste, Code-Farben und Status-Farben als Token; die doppelte Dunkel-Palette bleibt bewusst (Kommentar im CSS erklärt warum). 5064 → 4931 Zeilen. Schritte 2, 3, 4, 9 grün. **Schritt 5 als Fingerabdruck-Vergleich** (neues Prüf-Geschirr `code/pruefung/`, s. Test-Konvention Schritt 10): 74 Aufnahmen über alle Bauarten, Pfeil-Arten, Inspektor-Knöpfe, Maus (Verschieben mit Mitnehmen, Größe, Rahmen, Pfeil ziehen, Aufziehen, Schieben, Rad), Tastatur, Reiter/Gruppen/Menüs, fremde Stände, Export, Einfrieren, Einstellungen, hell und dunkel; 148 Datenbank-Schreibvorgänge — nach jedem der vier Umbau-Schritte **0 Unterschiede** zu 2.51, am Ende nur der Fassungstext und die `[hidden]`-Folge (36 CSS-Werte, alle an Kopfzeile/Inspektor-Höhe, keine Farbe, kein Rand, keine Schrift). Schritte 6 und 7 stehen aus.
   - **Fassung 2.51, 2026-09-10 (Tabelle: „Als Text“ weg):** das Inhalts-Textfeld aus 2.4 (`tbl-text`, `zellenAlsText`/`textAlsZellen`/`commitTblText`) ist entfernt — Gitter im Inspektor und Doppelklick in die Zelle reichen (Luis, 2026-09-10). Mit weg: der Zweig in `inspektorAbschliessen()` und die CSS-Regeln `.tbl-text-details`. Schritte 2, 3, 4 grün. Schritt 5 per Ereignis: Tabelle gewählt → kein `#tbl-text` im DOM, Gitter 3×2 da, „+ Zeile“ und Zellen-Menü weiter in Ordnung. Schritte 6 und 7 stehen aus.
   - **Fassung 2.50, 2026-09-10 (Sichtbarkeit, Issue #8):** neues optionales Feld `hidden` (boolean, im Brett — alle Betrachter und Claude sehen es). Ausgeblendet = blasser, gestrichelter Umriss ohne Inhalt (`.node.versteckt`, opacity .3, Kinder `visibility: hidden`; Raute behält ihren Umriss), weiter wählbar und verschiebbar, Doppelklick zum Tippen wird mit Hinweis abgelehnt. Alles, was ganz in einem ausgeblendeten Element und davor liegt (Mitnehmen-Regel, `mitnehmer()`), wird gar nicht gezeichnet und vom Auswahl-Rahmen nicht gewählt; Pfeile an einem ausgeblendeten oder darin liegenden Element werden nicht gezeichnet (`verstecktMengen()` liefert `umriss`/`weg`, gefragt in `renderNodes`, `renderWires`, Auswahl-Rahmen). Umschalten: Knopf „Ausblenden/Einblenden“ (`#btn-hide`, Abschnitt Anordnen, auch im Sammel-Modus) und Strg+Umschalt+H — ein Schreibweg `sichtbarkeitUmschalten()`; sind alle gewählten schon ausgeblendet, werden sie eingeblendet. `putNode`, `knotenDaten` (Kopieren/Duplizieren nimmt es mit), `applyNodes`, `brettAlsJSON` führen das Feld. Schritte 2, 3, 4 grün. Schritt 5 per Ereignis: Rahmen F mit A und B darin, C/T/D außerhalb, fünf Pfeile → F ausblenden: DOM „F* C T D“, Pfeile nur e4/e5 (C→T, T→D); F opacity .3, Rand dashed, Text hidden; Knopf „Einblenden“; Strg+Umschalt+H → alles zurück; Sammel A+C → „A* B C*“, Pfeile e2/e5; Raute D → gestrichelter Umriss. Bildschirmfoto geprüft. Schritte 6 und 7 stehen aus.

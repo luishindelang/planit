@@ -1,4 +1,4 @@
-# Pinit — Projektregeln
+# PlanIt — Projektregeln
 
 <!-- Via /projekt-regel hinzugefügte Regeln; über CLAUDE.md `@import`-geladen.
      NICHT hier: feste Invarianten (→ CLAUDE.md) und feature-lokale Konventionen (→ code/<bereich>/REGELN.md).

@@ -12,7 +12,7 @@
  * genau eine Fehlerklasse, und zwar die, die real zugeschlagen hat.
  *
  * Aufruf:  node undeklariert-pruefen.js [datei.html ...]
- *          ohne Argumente: pinit.html
+ *          ohne Argumente: planit.html
  * Exit 0 = sauber, Exit 1 = Fund (oder Datei/Skriptblock fehlt).
  */
 "use strict";
@@ -147,7 +147,7 @@ function pruefe(datei) {
 const dateien = process.argv.slice(2);
 const ziele = dateien.length
   ? dateien
-  : ["pinit.html"].map(function (f) {
+  : ["planit.html"].map(function (f) {
       return path.join(__dirname, f);
     });
 

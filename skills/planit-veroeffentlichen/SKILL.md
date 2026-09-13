@@ -1,24 +1,24 @@
 ---
-name: pinit-veroeffentlichen
-description: Veröffentlicht oder aktualisiert Pinit-Bretter (Whiteboard-Artifact aus pinit.html, db-Capability) — ohne Angabe ALLE Bretter aus der Liste `bretter.json`, mit Name oder URL nur eins, mit „neu <Name>“ ein neues Brett für ein Projekt (eigener Artifact-Name, eigene Datenbank). Nutze diesen Skill bei „veröffentliche Pinit“, „update alle Bretter“, „leg ein Pinit-Brett für <Projekt> an“, „publish das Brett“, „neue Fassung hochladen“. Funktioniert in jedem Projekt.
+name: planit-veroeffentlichen
+description: Veröffentlicht oder aktualisiert PlanIt-Bretter (Whiteboard-Artifact aus planit.html, bis 3.07 „Pinit“, db-Capability) — ohne Angabe ALLE Bretter aus der Liste `bretter.json`, mit Name oder URL nur eins, mit „neu <Name>“ ein neues Brett für ein Projekt (eigener Artifact-Name, eigene Datenbank). Nutze diesen Skill bei „veröffentliche PlanIt“, „update alle Bretter“, „leg ein PlanIt-Brett für <Projekt> an“, „publish das Brett“, „neue Fassung hochladen“. Funktioniert in jedem Projekt.
 ---
 
-# Pinit veröffentlichen
+# PlanIt veröffentlichen
 
-Die eine Quelle ist `C:\Users\luish\Documents\claude\pinit\code\pinit.html` (falls der Ordner
-noch nicht umbenannt ist: `…\claude\reissbrett\code\pinit.html`). Sie wird **nie** verändert.
+Die eine Quelle ist `C:\Users\luish\Documents\claude\planit\code\planit.html` (falls der Ordner
+noch nicht umbenannt ist: `…\claude\reissbrett\code\planit.html`). Sie wird **nie** verändert.
 Jedes Brett ist ein eigenes Artifact mit eigenem Namen und eigener Datenbank; die Liste aller
 Bretter liegt neben diesem Skill in `bretter.json`.
 
 ## 0. Aufruf verstehen
-- **Ohne Angabe** („veröffentliche Pinit“, „update alle“): **alle** Einträge aus `bretter.json`
+- **Ohne Angabe** („veröffentliche PlanIt“, „update alle“): **alle** Einträge aus `bretter.json`
   aktualisieren.
 - **Mit Name oder URL**: nur dieses Brett. Name = `name` aus der Liste (Teilstring reicht, bei
   mehreren Treffern nachfragen).
 - **„neu <Name>“** (oder „leg ein Brett für <Projekt> an“): neues Brett anlegen, in die Liste
-  eintragen, URL in die `CLAUDE.md` des aktuellen Projekts schreiben (Abschnitt „Pinit-Brett“,
-  eine Zeile mit URL), damit `pinit-lesen`/`pinit-schreiben` sie finden.
-  **Fehlt der Name, fragen** (AskUserQuestion, Vorschlag „Pinit · <Name des Projektordners>“).
+  eintragen, URL in die `CLAUDE.md` des aktuellen Projekts schreiben (Abschnitt „PlanIt-Brett“,
+  eine Zeile mit URL), damit `planit-lesen`/`planit-schreiben` sie finden.
+  **Fehlt der Name, fragen** (AskUserQuestion, Vorschlag „PlanIt · <Name des Projektordners>“).
   Nie einen Namen raten.
 
 **Konten-Regel (wichtig, weil Luis zwei Konten hat — Arbeit und privat):** Ein Artifact kann
@@ -35,10 +35,10 @@ beim Anlegen eines neuen Bretts diese Adresse als `konto` eintragen.
 1. Quelle lesen, `var FASSUNG = "x.y"` herausziehen — das wird das `label`.
 2. `bretter.json` lesen. Format:
    ```json
-   [ { "name": "Pinit · Smartvillage", "url": "https://claude.ai/code/artifact/…", "favicon": "📌", "projekt": "C:\\…" } ]
+   [ { "name": "PlanIt · Smartvillage", "url": "https://claude.ai/code/artifact/…", "favicon": "📌", "projekt": "C:\\…" } ]
    ```
-3. **Je Brett eine Wegwerf-Kopie** im Scratchpad: `pinit-<slug>.html`, in der **genau eine**
-   Zeile anders ist: `<title>Pinit</title>` → `<title><name></title>`. Der Galerie-Name kommt
+3. **Je Brett eine Wegwerf-Kopie** im Scratchpad: `planit-<slug>.html`, in der **genau eine**
+   Zeile anders ist: `<title>PlanIt</title>` → `<title><name></title>`. Der Galerie-Name kommt
    aus dieser Zeile; der `title`-Parameter greift nur ohne Title-Tag. Vor dem Publish prüfen,
    dass sich Kopie und Quelle in genau einer Zeile unterscheiden (`diff | wc -l`).
    **Denselben Kopie-Pfad je Brett wiederverwenden** — ein anderer Pfad wäre für das
@@ -53,7 +53,7 @@ Artifact-Werkzeug, je Brett ein Aufruf:
   Versions-Konflikt **nicht** `force`: die Seite selbst schreibt sich nie neu, ein Konflikt heißt
   eine andere Sitzung hat veröffentlicht — kurz lesen, dann erneut.
 - **Neu:** `file_path` = Kopie, **kein** `url`, `capabilities: { db: {} }`, `favicon` (Emoji,
-  Vorgabe 📌), `label` = „Fassung <FASSUNG>“, `description` = „Pinit-Brett für <Projekt>“.
+  Vorgabe 📌), `label` = „Fassung <FASSUNG>“, `description` = „PlanIt-Brett für <Projekt>“.
   Die zurückgegebene URL in `bretter.json` eintragen (name, url, favicon, projekt = aktuelles
   Arbeitsverzeichnis) und in die Projekt-`CLAUDE.md`.
 
@@ -64,6 +64,6 @@ nicht verstecken. Bei „alle“ auch die Zahl: „3 von 3 aktualisiert“.
 ## Grenzen
 - Der Inhalt liegt in der Datenbank des Artifacts und übersteht ein Update — ein Update ist
   gefahrlos. Ein Publish **ohne** `url` erzeugt dagegen immer ein neues, leeres Brett.
-- Nie die Quelle `pinit.html` umschreiben, um einen Namen zu setzen. Nur die Kopie.
+- Nie die Quelle `planit.html` umschreiben, um einen Namen zu setzen. Nur die Kopie.
 - Ein Brett aus der Liste nehmen = Zeile in `bretter.json` löschen; das Artifact selbst löscht
   nur Luis in der Galerie (claude.ai/code/artifacts).
