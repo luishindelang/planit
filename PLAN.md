@@ -89,6 +89,7 @@ Abgeschlossenes wandert nach `artefakte/`, damit diese Datei schlank bleibt (sie
 | 2.1 | 2026-09-07 | Umschalt+Klick nimmt Elemente in die Mehrfachauswahl auf oder heraus; Umschalt beim Rahmenziehen ergaenzt |
 | 2.2 | 2026-09-07 | Pfeile gehoeren zur Mehrfachauswahl: der Rahmen nimmt einen Pfeil, wenn er seine Linie beruehrt; Umschalt+Klick auf Pfeile; Entf loescht Kaesten und Pfeile zusammen |
 | 2.3 | 2026-09-07 | **Tabelle** als fuenfte Bauart (`kind: "table"`, Ueberschrift + Kopfzeile, neues Feld `cells`, Zellen per Doppelklick, Tab springt, Zeilen/Spalten im Inspektor) und **Stichpunkte** in jedem Element (Zeile mit `- ` wird als Punkt gezeigt, gespeichert bleibt roher Text). Nebenbei gefunden und behoben: Fokus-Zeitgeber loeschten fremde Editier-Merker |
+| 3.09 | 2026-09-16 | Tabellen bis 200 Zeilen × 100 Spalten (vorher 20 × 10) |
 | 3.08 | 2026-09-13 | Umbenennung Pinit → PlanIt: Datei `code/planit.html`, Repo `luishindelang/planit`, Skills `planit-*`, Bretter „PlanIt · …“; Daten und Kennungen unverändert |
 | 3.07 | 2026-09-12 | Status-Ampel: klares Rot, Gelb, Grün (eigene Token) — offen und in Arbeit waren kaum zu unterscheiden |
 | 3.06 | 2026-09-12 | Nachbarschaft: was in einem gehobenen Element liegt, kommt mit nach vorn (vorher verschwand der Inhalt eines gewählten Rahmens hinter dem Rahmen) |

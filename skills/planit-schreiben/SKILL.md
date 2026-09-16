@@ -35,7 +35,7 @@ ist live. Es gibt **kein Rückgängig**.
   `z` (0 reicht) · `sheet` (Reiter-Kennung) · `fs` 0 · `bold` 0 · `align` "" · `valign` "" (top|middle|bottom, seit 2.17) ·
   `note` (Langtext, Details, nur im Inspektor; darf "" sein) ·
   **`cells`** nur bei `kind: "table"`: Array von Zeilen, jede ein Array von Strings, **erste Zeile
-  = Kopfzeile**, alle Zeilen gleich lang, höchstens 20×10, 200 Zeichen je Zelle; `text` ist die
+  = Kopfzeile**, alle Zeilen gleich lang, höchstens 200 Zeilen × 100 Spalten (Fassungen bis 3.08: 20×10), 200 Zeichen je Zelle; `text` ist die
   Überschrift der Tabelle. Bretter vor Fassung 2.3 zeigen Tabellen nicht an.
   **Stichpunkte** sind reiner Text: Zeile mit `- ` beginnen, die Seite zeigt sie als Punkt.
   **Software-Bauarten (seit 2.5–2.7):** `frame` = Bildschirm/Fenster (`text` Titel, `layout`

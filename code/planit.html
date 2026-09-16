@@ -1166,8 +1166,8 @@
   /* ============================ Modell ============================ */
   // Fassung: steht sichtbar in der Kopfzeile, damit man ohne Nachfragen sieht,
   // ob ein Brett hinterherhaengt. Bei jeder Aenderung an dieser Datei hochzaehlen.
-  var FASSUNG = "3.08";
-  var FASSUNG_DATUM = "2026-09-13";
+  var FASSUNG = "3.09";
+  var FASSUNG_DATUM = "2026-09-16";
 
   /* ============================ Kleine Helfer ============================ */
   var $ = function (id) { return document.getElementById(id); };
@@ -1254,7 +1254,7 @@
     orange: "Orange", coral: "Koralle", rose: "Rosé", violet: "Violett", lilac: "Flieder", sky: "Himmel",
     teal: "Petrol", mint: "Mint", lime: "Limette" };
 
-  var TBL_MAX_ZEILEN = 20, TBL_MAX_SPALTEN = 10, TBL_MAX_ZELLE = 200;
+  var TBL_MAX_ZEILEN = 200, TBL_MAX_SPALTEN = 100, TBL_MAX_ZELLE = 200; // 3.09: vorher 20 × 10 (Luis: 118 Zeilen gebraucht)
   // Bildschirm-Rahmen: gewaehltes Layout setzt die Groesse einmal, danach frei veraenderbar.
   var LAYOUTS = { frei: null, desktop: [960, 600], tablet: [600, 800], handy: [360, 640] };
   function layoutLesen(v) { return Object.prototype.hasOwnProperty.call(LAYOUTS, v) ? v : "frei"; }
@@ -4606,7 +4606,7 @@
      ["Brett", titleEl.value],
      ["Speicher", noStore || !db ? "keiner — nichts wird gespeichert" : (frozen ? "eingefroren (schreibgeschützt)" : "Artifact-Datenbank, live für alle Betrachter")],
      ["Inhalt", allNodes.size + " Elemente · " + allEdges.size + " Pfeile · " + reiter + (reiter === 1 ? " Reiter" : " Reiter") + (waisen ? " · " + waisen + " auf Unsortiert" : "")],
-     ["Grenzen", "1000 Elemente, 1000 Pfeile, 200 Reiter je Brett (die ältesten werden angezeigt); 2000 Zeichen je Element, 4000 je Notiz"]
+     ["Grenzen", "1000 Elemente, 1000 Pfeile, 200 Reiter je Brett (die ältesten werden angezeigt); 2000 Zeichen je Element, 4000 je Notiz; Tabellen bis 200 Zeilen × 100 Spalten"]
     ].forEach(function (p) {
       var dt = document.createElement("dt"); dt.textContent = p[0];
       var dd = document.createElement("dd"); dd.textContent = p[1];
