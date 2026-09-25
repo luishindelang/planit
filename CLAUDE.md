@@ -51,9 +51,9 @@ die URL muss als `url` mitgegeben werden (sonst entsteht ein neues, leeres Artif
 `capabilities` weglassen (die gespeicherte `{db:{}}` bleibt), `label` = Fassung, und
 `planit.html` wird für keinen Namen umgeschrieben — nur die Kopie.
 
-**Zugriff von überall:** das Artifact hängt an Luis' Konto, nicht an diesem Ordner. Jede
-Claude-Code-Sitzung in jedem Projekt kann mit der URL per `read_db`/`write_db` an die Daten —
-darum liegen die Skills `planit-lesen`/`planit-schreiben` im Benutzer-Ordner.
+**Andere Projekte** (Regel: globale `CLAUDE.md`, „Ein Chat = ein Projekt“): die Skills `planit-lesen`/`-schreiben`/`-veroeffentlichen` gehören **diesem** Repo — geändert wird in `skills/`, danach nach `~/.claude/skills/` kopiert (`bretter.json` liegt nur dort, bewusst nicht im Repo).
+Andere Chats lesen und beschreiben Bretter über diese Skills (`read_db`/`write_db` mit der URL; das Artifact hängt an Luis' Konto, nicht an diesem Ordner) — das ist kein Eingriff in dieses Repo.
+Braucht PlanIt eine Änderung in einem anderen Projekt → Arbeitsauftrag an einen neuen Chat dort.
 
 **Wie die Datei verteilt wird (seit 2.20):** öffentliches GitHub-Repo
 `https://github.com/luishindelang/planit`, Download der aktuellen Fassung unter
@@ -61,8 +61,7 @@ darum liegen die Skills `planit-lesen`/`planit-schreiben` im Benutzer-Ordner.
 „commit und push“. **Und danach Pflicht: ALLE Bretter aktualisieren** — Skill `planit-veroeffentlichen`
 ohne Angabe (jeder Eintrag in `bretter.json`, nicht nur das Dashboard). Ein Brett, das nach einem Commit
 auf `main` noch die alte Fassung zeigt, ist ein Fehler, kein Zustand (Luis, 2026-09-11). Grenze: das
-Arbeits-Brett gehört dem Arbeitskonto und lässt sich nur dort aktualisieren. Die Skills liegen als Kopie in `skills/` (nach `~/.claude/skills/` kopieren);
-`bretter.json` mit den eigenen Brett-URLs bleibt bewusst außerhalb des Repos. Ein Auto-Update der
+Arbeits-Brett gehört dem Arbeitskonto und lässt sich nur dort aktualisieren. Ein Auto-Update der
 Bretter gibt es weiterhin nicht (s. `PLAN.md`, Roter Faden) — die Fassungsnummer in der Kopfzeile
 zeigt, wer hinterherhängt.
 
